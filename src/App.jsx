@@ -1,7 +1,37 @@
 /* eslint-disable max-len */
 
 import './App.scss';
-// import moviesFromServer from './api/movies.json';
+import moviesFromServer from './api/movies.json';
+
+const MoviesCard = ({ movie }) => (
+  <div className="MoviesList">
+    <div
+      className="movie-image"
+      style={{
+        backgroundImage: `url(${movie.imgUrl})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        width: '300px',
+        height: '450px',
+      }}
+    />
+    <h2 className="title is-8" data-cy="MovieTitle">
+      {movie.title}
+    </h2>
+    <p data-cy="MovieDescription">{movie.description}</p>
+    <a href={movie.imdbUrl} data-cy="MovieLink">
+      View on IMDd
+    </a>
+  </div>
+);
+
+const MoviesList = () => (
+  <div className="sidebar" data-cy="Sidebar">
+    {moviesFromServer.map(movie => (
+      <MoviesCard movie={movie} key={movie.imdbId} />
+    ))}
+  </div>
+);
 
 export const App = () => (
   <div className="page">
@@ -95,8 +125,6 @@ export const App = () => (
       </div>
     </div>
 
-    <div className="sidebar" data-cy="Sidebar">
-      Sidebar will be here
-    </div>
+    <MoviesList />
   </div>
 );
